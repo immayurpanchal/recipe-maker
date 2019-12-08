@@ -9,17 +9,19 @@ class App extends React.Component {
 	state = {
 		searchResults  : [],
 		selectedRecipe : null,
-		shoppingList   : []
+		shoppingList   : [],
+		isLoading      : false
 	};
 
 	onSearchClick = async (query) => {
+		this.setState({ isLoading: true });
 		const res = await spoonacular.get('/recipes/search', { params: { query, apiKey: process.env.REACT_APP_API_KEY } });
 		const SIZE = '240x150';
 		const TYPE = 'jpg';
 		const recipes = res.data.results.map((recipe) => {
 			return { ...recipe, image: `https://spoonacular.com/recipeImages/${recipe.id}-${SIZE}.${TYPE}` };
 		});
-		this.setState({ searchResults: recipes });
+		this.setState({ searchResults: recipes, isLoading: false });
 	};
 
 	onRecipeSelected = async ({ id, readyInMinutes, servings, title }) => {
@@ -47,7 +49,18 @@ class App extends React.Component {
 		return (
 			<div className='container'>
 				<Header onSearchClick={this.onSearchClick} />
-				<RecipeList recipes={this.state.searchResults} onRecipeSelected={this.onRecipeSelected} />
+				{this.state.isLoading && (
+					<div className='results'>
+						<div className='loader'>
+							<svg className='likes__icon'>
+								<use href='img/icons.svg#icon-heart' />
+							</svg>
+						</div>
+					</div>
+				)}
+				{!this.state.isLoading && (
+					<RecipeList recipes={this.state.searchResults} onRecipeSelected={this.onRecipeSelected} />
+				)}
 				<Recipe recipe={this.state.selectedRecipe} onAddToShoppingList={this.onAddToShoppingList} />
 				<Shopping shoppingList={this.state.shoppingList} onRemoveIngredient={this.onRemoveIngredient} />
 			</div>
