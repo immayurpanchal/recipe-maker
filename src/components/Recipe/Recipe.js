@@ -1,12 +1,18 @@
 import React from 'react';
 
-const Recipe = () => {
+const Recipe = (props) => {
+	const SIZE = '556x370';
+	const TYPE = 'jpg';
 	return (
 		<div className='recipe'>
 			<figure className='recipe__fig'>
-				<img src='img/test-1.jpg' alt='Tomato' className='recipe__img' />
+				<img
+					src={props && props.recipe && `https://spoonacular.com/recipeImages/${props.recipe.id}-${SIZE}.${TYPE}`}
+					alt={props && props.recipe && props.recipe.title}
+					className='recipe__img'
+				/>
 				<h1 className='recipe__title'>
-					<span>Pasta with tomato cream sauce</span>
+					<span>{props && props.recipe && props.recipe.title}</span>
 				</h1>
 			</figure>
 			<div className='recipe__details'>
@@ -14,14 +20,18 @@ const Recipe = () => {
 					<svg className='recipe__info-icon'>
 						<use href='img/icons.svg#icon-stopwatch' />
 					</svg>
-					<span className='recipe__info-data recipe__info-data--minutes'>45</span>
+					<span className='recipe__info-data recipe__info-data--minutes'>
+						{props && props.recipe && props.recipe.readyInMinutes}
+					</span>
 					<span className='recipe__info-text'> minutes</span>
 				</div>
 				<div className='recipe__info'>
 					<svg className='recipe__info-icon'>
 						<use href='img/icons.svg#icon-man' />
 					</svg>
-					<span className='recipe__info-data recipe__info-data--people'>4</span>
+					<span className='recipe__info-data recipe__info-data--people'>
+						{props && props.recipe && props.recipe.servings}
+					</span>
 					<span className='recipe__info-text'> servings</span>
 
 					<div className='recipe__info-buttons'>
@@ -46,71 +56,23 @@ const Recipe = () => {
 
 			<div className='recipe__ingredients'>
 				<ul className='recipe__ingredient-list'>
-					<li className='recipe__item'>
-						<svg className='recipe__icon'>
-							<use href='img/icons.svg#icon-check' />
-						</svg>
-						<div className='recipe__count'>1000</div>
-						<div className='recipe__ingredient'>
-							<span className='recipe__unit'>g</span>
-							pasta
-						</div>
-					</li>
-
-					<li className='recipe__item'>
-						<svg className='recipe__icon'>
-							<use href='img/icons.svg#icon-check' />
-						</svg>
-						<div className='recipe__count'>1/2</div>
-						<div className='recipe__ingredient'>
-							<span className='recipe__unit'>cup</span>
-							ricotta cheese
-						</div>
-					</li>
-
-					<li className='recipe__item'>
-						<svg className='recipe__icon'>
-							<use href='img/icons.svg#icon-check' />
-						</svg>
-						<div className='recipe__count'>1</div>
-						<div className='recipe__ingredient'>
-							<span className='recipe__unit' />
-							can of tomatoes, whole or crushed
-						</div>
-					</li>
-
-					<li className='recipe__item'>
-						<svg className='recipe__icon'>
-							<use href='img/icons.svg#icon-check' />
-						</svg>
-						<div className='recipe__count'>1</div>
-						<div className='recipe__ingredient'>
-							<span className='recipe__unit' />
-							can tuna packed in olive oil
-						</div>
-					</li>
-
-					<li className='recipe__item'>
-						<svg className='recipe__icon'>
-							<use href='img/icons.svg#icon-check' />
-						</svg>
-						<div className='recipe__count'>1/2</div>
-						<div className='recipe__ingredient'>
-							<span className='recipe__unit'>cup</span>
-							grated parmesan cheese
-						</div>
-					</li>
-
-					<li className='recipe__item'>
-						<svg className='recipe__icon'>
-							<use href='img/icons.svg#icon-check' />
-						</svg>
-						<div className='recipe__count'>1/4</div>
-						<div className='recipe__ingredient'>
-							<span className='recipe__unit'>cup</span>
-							fresh basil, chopped or torn
-						</div>
-					</li>
+					{props &&
+						props.recipe &&
+						props.recipe.ingredients &&
+						props.recipe.ingredients.map(({ name, amount: { us: { value, unit } } }) => {
+							return (
+								<li className='recipe__item'>
+									<svg className='recipe__icon'>
+										<use href='img/icons.svg#icon-check' />
+									</svg>
+									<div className='recipe__count'>{value}</div>
+									<div className='recipe__ingredient'>
+										<span className='recipe__unit'>{unit} </span>
+										{name}
+									</div>
+								</li>
+							);
+						})}
 				</ul>
 
 				<button className='btn-small recipe__btn'>

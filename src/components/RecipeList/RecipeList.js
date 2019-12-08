@@ -1,20 +1,23 @@
 import React from 'react';
 
-const RecipeList = () => {
+const RecipeList = (props) => {
 	return (
 		<div className='results'>
 			<ul className='results__list'>
-				<li>
-					<a className='results__link results__link--active' href='#23456'>
-						<figure className='results__fig'>
-							<img src='img/test-1.jpg' alt='Test' />
-						</figure>
-						<div className='results__data'>
-							<h4 className='results__name'>Pasta with Tomato ...</h4>
-							<p className='results__author'>The Pioneer Woman</p>
-						</div>
-					</a>
-				</li>
+				{props.recipes.map(({ title, image, id, readyInMinutes, servings }) => {
+					return (
+						<li key={id} onClick={() => props.onRecipeSelected({ id, readyInMinutes, servings, title })}>
+							<a className='results__link results__link--active' href='#23456'>
+								<figure className='results__fig'>
+									<img src={image} alt='Test' />
+								</figure>
+								<div className='results__data'>
+									<h4 className='results__name'>{title}</h4>
+								</div>
+							</a>
+						</li>
+					);
+				})}
 			</ul>
 
 			{/* <div className='results__pages'>
