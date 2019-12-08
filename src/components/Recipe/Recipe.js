@@ -1,13 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import uuid from 'uuid/v4';
 
 const Recipe = (props) => {
 	const SIZE = '556x370';
 	const TYPE = 'jpg';
 
-	const onServingsChange = (servingButton) => {
-		if (servingButton === 1) console.log('servings increment');
-		else console.log('serving decrement');
+	const [
+		isLiked,
+		setLiked
+	] = useState(false);
+	// const onServingsChange = (servingButton) => {
+	// 	if (servingButton === 1) console.log('servings increment');
+	// 	else console.log('serving decrement');
+	// };
+	const onLikeClicked = (recipe) => {
+		if (!isLiked) props.onLiked(recipe);
+		setLiked(!isLiked);
 	};
 
 	if (props && props.recipe) {
@@ -36,7 +44,7 @@ const Recipe = (props) => {
 						<span className='recipe__info-data recipe__info-data--people'>{servings}</span>
 						<span className='recipe__info-text'> servings</span>
 
-						<div className='recipe__info-buttons'>
+						{/* <div className='recipe__info-buttons'>
 							<button className='btn-tiny'>
 								<svg>
 									<use href='img/icons.svg#icon-circle-with-minus' onClick={() => onServingsChange()} />
@@ -47,11 +55,13 @@ const Recipe = (props) => {
 									<use href='img/icons.svg#icon-circle-with-plus' onClick={() => onServingsChange(1)} />
 								</svg>
 							</button>
-						</div>
+						</div> */}
 					</div>
-					<button className='recipe__love'>
+					<button className='recipe__love' onClick={() => onLikeClicked(props.recipe)}>
 						<svg className='header__likes'>
-							<use href='img/icons.svg#icon-heart-outlined' />
+							{
+								isLiked ? <use href={'img/icons.svg#icon-heart'} /> :
+								<use href={'img/icons.svg#icon-heart-outlined'} />}
 						</svg>
 					</button>
 				</div>

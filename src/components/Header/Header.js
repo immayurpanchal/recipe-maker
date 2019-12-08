@@ -2,7 +2,6 @@ import React from 'react';
 
 const Header = (props) => {
 	let inputText = '';
-
 	const onSearchClick = (e) => {
 		e.preventDefault();
 		props.onSearchClick(inputText);
@@ -33,17 +32,22 @@ const Header = (props) => {
 				</div>
 				<div className='likes__panel'>
 					<ul className='likes__list'>
-						<li>
-							<a className='likes__link' href='#23456'>
-								<figure className='likes__fig'>
-									<img src='img/test-1.jpg' alt='Test' />
-								</figure>
-								<div className='likes__data'>
-									<h4 className='likes__name'>Pasta with Tomato ...</h4>
-									<p className='likes__author'>The Pioneer Woman</p>
-								</div>
-							</a>
-						</li>
+						{props &&
+							props.likedRecipes &&
+							props.likedRecipes.map(({ id, title }) => {
+								return (
+									<li key={id}>
+										<a className='likes__link' href='#1'>
+											<figure className='likes__fig'>
+												<img src={`https://spoonacular.com/recipeImages/${id}-90x90.jpg`} alt='Test' />
+											</figure>
+											<div className='likes__data'>
+												<h4 className='likes__name'>{title}</h4>
+											</div>
+										</a>
+									</li>
+								);
+							})}
 					</ul>
 				</div>
 			</div>

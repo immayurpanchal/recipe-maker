@@ -15,7 +15,7 @@ const Shopping = (props) => {
 					return (
 						<li className='shopping__item' key={id}>
 							<div className='shopping__count'>
-								<input type='number' value={value} step='100' />
+								<input type='text' value={value} />
 								<p>{unit}</p>
 							</div>
 							<p className='shopping__description'>{name}</p>
