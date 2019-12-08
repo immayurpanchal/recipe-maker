@@ -1,12 +1,24 @@
 import React from 'react';
 
-const Header = () => {
+const Header = (props) => {
+	let inputText = '';
+
+	const onSearchClick = (e) => {
+		e.preventDefault();
+		props.onSearchClick(inputText);
+	};
+
 	return (
 		<header className='header'>
 			<img src='img/logo.png' alt='Logo' className='header__logo' />
-			<form className='search'>
-				<input type='text' className='search__field' placeholder='Search over 1,000,000 recipes...' />
-				<button className='btn search__btn'>
+			<form className='search' onSubmit={onSearchClick}>
+				<input
+					type='text'
+					className='search__field'
+					placeholder='Search over 1,000,000 recipes...'
+					onChange={(e) => (inputText = e.target.value)}
+				/>
+				<button className='btn search__btn' type='submit'>
 					<svg className='search__icon'>
 						<use href='img/icons.svg#icon-magnifying-glass' />
 					</svg>
