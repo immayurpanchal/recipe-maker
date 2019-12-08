@@ -7,7 +7,7 @@ const RecipeList = (props) => {
 				{props.recipes.map(({ title, image, id, readyInMinutes, servings }) => {
 					return (
 						<li key={id} onClick={() => props.onRecipeSelected({ id, readyInMinutes, servings, title })}>
-							<a className='results__link results__link--active' href='#23456'>
+							<a className='results__link results__link--active' href='#1'>
 								<figure className='results__fig'>
 									<img src={image} alt='Test' />
 								</figure>

@@ -8,7 +8,8 @@ import spoonacular from './api/spoonacular';
 class App extends React.Component {
 	state = {
 		searchResults  : [],
-		selectedRecipe : null
+		selectedRecipe : null,
+		shoppingList   : []
 	};
 
 	onSearchClick = async (query) => {
@@ -28,13 +29,27 @@ class App extends React.Component {
 		this.setState({ selectedRecipe: { ingredients: res.data.ingredients, readyInMinutes, servings, title, id } });
 	};
 
+	onAddToShoppingList = (ingredients) => {
+		this.setState({
+			shoppingList : [
+				...this.state.shoppingList,
+				...ingredients
+			]
+		});
+	};
+
+	onRemoveIngredient = (id) => {
+		const filteredShoppingList = this.state.shoppingList.filter((ingredient) => ingredient.id !== id);
+		this.setState({ shoppingList: filteredShoppingList });
+	};
+
 	render () {
 		return (
 			<div className='container'>
 				<Header onSearchClick={this.onSearchClick} />
 				<RecipeList recipes={this.state.searchResults} onRecipeSelected={this.onRecipeSelected} />
-				<Recipe recipe={this.state.selectedRecipe} />
-				<Shopping />
+				<Recipe recipe={this.state.selectedRecipe} onAddToShoppingList={this.onAddToShoppingList} />
+				<Shopping shoppingList={this.state.shoppingList} onRemoveIngredient={this.onRemoveIngredient} />
 			</div>
 		);
 	}
