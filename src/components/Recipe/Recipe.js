@@ -5,10 +5,7 @@ const Recipe = (props) => {
 	const SIZE = '556x370';
 	const TYPE = 'jpg';
 
-	const [
-		isLiked,
-		setLiked
-	] = useState(false);
+	const [isLiked, setLiked] = useState(false);
 	// const onServingsChange = (servingButton) => {
 	// 	if (servingButton === 1) console.log('servings increment');
 	// 	else console.log('serving decrement');
@@ -19,7 +16,9 @@ const Recipe = (props) => {
 	};
 
 	if (props && props.recipe) {
-		const { recipe: { title, readyInMinutes, servings, ingredients, id } } = props;
+		const {
+			recipe: { title, readyInMinutes, servings, ingredients, id },
+		} = props;
 		const newIngredients = ingredients.map((ingredient) => ({ ...ingredient, id: uuid() }));
 		return (
 			<div className='recipe'>
@@ -59,29 +58,35 @@ const Recipe = (props) => {
 					</div>
 					<button className='recipe__love' onClick={() => onLikeClicked(props.recipe)}>
 						<svg className='header__likes'>
-							{
-								isLiked ? <use href={'img/icons.svg#icon-heart'} /> :
-								<use href={'img/icons.svg#icon-heart-outlined'} />}
+							{isLiked ? <use href={'img/icons.svg#icon-heart'} /> : <use href={'img/icons.svg#icon-heart-outlined'} />}
 						</svg>
 					</button>
 				</div>
 
 				<div className='recipe__ingredients'>
 					<ul className='recipe__ingredient-list'>
-						{newIngredients.map(({ name, amount: { us: { value, unit } }, id }) => {
-							return (
-								<li className='recipe__item' key={id}>
-									<svg className='recipe__icon'>
-										<use href='img/icons.svg#icon-check' />
-									</svg>
-									<div className='recipe__count'>{value}</div>
-									<div className='recipe__ingredient'>
-										<span className='recipe__unit'>{unit} </span>
-										{name}
-									</div>
-								</li>
-							);
-						})}
+						{newIngredients.map(
+							({
+								name,
+								amount: {
+									us: { value, unit },
+								},
+								id,
+							}) => {
+								return (
+									<li className='recipe__item' key={id}>
+										<svg className='recipe__icon'>
+											<use href='img/icons.svg#icon-check' />
+										</svg>
+										<div className='recipe__count'>{value}</div>
+										<div className='recipe__ingredient'>
+											<span className='recipe__unit'>{unit} </span>
+											{name}
+										</div>
+									</li>
+								);
+							}
+						)}
 					</ul>
 
 					<button className='btn-small recipe__btn' onClick={() => props.onAddToShoppingList(newIngredients)}>
