@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header component Render the component 1`] = `
+<div>
+  <header
+    class="header"
+  >
+    <img
+      alt="Logo"
+      class="header__logo"
+      src="img/logo.png"
+    />
+    <form
+      class="search"
+    >
+      <input
+        class="search__field"
+        placeholder="Search over 1,000,000 recipes..."
+        type="text"
+      />
+      <button
+        class="btn search__btn"
+        type="submit"
+      >
+        <svg
+          class="search__icon"
+        >
+          <use
+            href="img/icons.svg#icon-magnifying-glass"
+          />
+        </svg>
+        <span>
+          Search
+        </span>
+      </button>
+    </form>
+    <div
+      class="likes"
+    >
+      <div
+        class="likes__field"
+      >
+        <svg
+          class="likes__icon"
+        >
+          <use
+            href="img/icons.svg#icon-heart"
+          />
+        </svg>
+      </div>
+      <div
+        class="likes__panel"
+      >
+        <ul
+          class="likes__list"
+        />
+      </div>
+    </div>
+  </header>
+</div>
+`;

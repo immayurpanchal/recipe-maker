@@ -1,0 +1,169 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header component Pass the props 1`] = `
+<div>
+  <div
+    class="recipe"
+  >
+    <figure
+      class="recipe__fig"
+    >
+      <img
+        alt=""
+        class="recipe__img"
+        src="https://spoonacular.com/recipeImages/undefined-556x370.jpg"
+      />
+      <h1
+        class="recipe__title"
+      >
+        <span />
+      </h1>
+    </figure>
+    <div
+      class="recipe__details"
+    >
+      <div
+        class="recipe__info"
+      >
+        <svg
+          class="recipe__info-icon"
+        >
+          <use
+            href="img/icons.svg#icon-stopwatch"
+          />
+        </svg>
+        <span
+          class="recipe__info-data recipe__info-data--minutes"
+        />
+        <span
+          class="recipe__info-text"
+        >
+           minutes
+        </span>
+      </div>
+      <div
+        class="recipe__info"
+      >
+        <svg
+          class="recipe__info-icon"
+        >
+          <use
+            href="img/icons.svg#icon-man"
+          />
+        </svg>
+        <span
+          class="recipe__info-data recipe__info-data--people"
+        />
+        <span
+          class="recipe__info-text"
+        >
+           servings
+        </span>
+      </div>
+      <button
+        class="recipe__love"
+      >
+        <svg
+          class="header__likes"
+        >
+          <use
+            href="img/icons.svg#icon-heart-outlined"
+          />
+        </svg>
+      </button>
+    </div>
+    <div
+      class="recipe__ingredients"
+    >
+      <ul
+        class="recipe__ingredient-list"
+      >
+        <li
+          class="recipe__item"
+        >
+          <svg
+            class="recipe__icon"
+          >
+            <use
+              href="img/icons.svg#icon-check"
+            />
+          </svg>
+          <div
+            class="recipe__count"
+          >
+            20
+          </div>
+          <div
+            class="recipe__ingredient"
+          >
+            <span
+              class="recipe__unit"
+            >
+              41
+               
+            </span>
+            test
+          </div>
+        </li>
+      </ul>
+      <button
+        class="btn-small recipe__btn"
+      >
+        <svg
+          class="search__icon"
+        >
+          <use
+            href="img/icons.svg#icon-shopping-cart"
+          />
+        </svg>
+        <span>
+          Add to shopping list
+        </span>
+      </button>
+    </div>
+    <div
+      class="recipe__directions"
+    >
+      <h2
+        class="heading-2"
+      >
+        How to cook it
+      </h2>
+      <p
+        class="recipe__directions-text"
+      >
+        This recipe was carefully designed and tested by
+        <span
+          class="recipe__by"
+        >
+          The Pioneer Woman
+        </span>
+        . Please check out directions at their website.
+      </p>
+      <a
+        class="btn-small recipe__btn"
+        href="http://thepioneerwoman.com/cooking/pasta-with-tomato-cream-sauce/"
+      >
+        <span>
+          Directions
+        </span>
+        <svg
+          class="search__icon"
+        >
+          <use
+            href="img/icons.svg#icon-triangle-right"
+          />
+        </svg>
+      </a>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Header component Render the component 1`] = `
+<div>
+  <div
+    class="recipe"
+  />
+</div>
+`;
