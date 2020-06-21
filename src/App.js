@@ -4,14 +4,25 @@ import RecipeList from './components/RecipeList/RecipeList';
 import Recipe from './components/Recipe/Recipe';
 import Shopping from './components/Shopping/Shopping';
 import spoonacular from './api/spoonacular';
+import Login from './components/Login/Login';
 
 class App extends React.Component {
 	state = {
-		searchResults  : [],
-		selectedRecipe : null,
-		shoppingList   : [],
-		isLoading      : false,
-		likedRecipes   : []
+		searchResults: [],
+		selectedRecipe: null,
+		shoppingList: [],
+		isLoading: false,
+		likedRecipes: [],
+		isLoggedIn: false,
+		isAuthFailed: false,
+	};
+
+	onGoogleLoginSuccess = () => {
+		this.setState({ isLoggedIn: true, isAuthFailed: false });
+	};
+
+	onGoogleLoginFail = () => {
+		this.setState({ isLoggedIn: false, isAuthFailed: true });
 	};
 
 	onSearchClick = async (query) => {
@@ -27,17 +38,14 @@ class App extends React.Component {
 
 	onRecipeSelected = async ({ id, readyInMinutes, servings, title }) => {
 		const res = await spoonacular.get(`/recipes/${id}/ingredientWidget.json?`, {
-			params : { apiKey: process.env.REACT_APP_API_KEY }
+			params: { apiKey: process.env.REACT_APP_API_KEY },
 		});
 		this.setState({ selectedRecipe: { ingredients: res.data.ingredients, readyInMinutes, servings, title, id } });
 	};
 
 	onAddToShoppingList = (ingredients) => {
 		this.setState({
-			shoppingList : [
-				...this.state.shoppingList,
-				...ingredients
-			]
+			shoppingList: [...this.state.shoppingList, ...ingredients],
 		});
 	};
 
@@ -50,15 +58,22 @@ class App extends React.Component {
 		const index = this.state.likedRecipes.findIndex((recipe) => recipe.id === selectedRecipe.id);
 		if (index === -1) {
 			this.setState({
-				likedRecipes : [
-					...this.state.likedRecipes,
-					selectedRecipe
-				]
+				likedRecipes: [...this.state.likedRecipes, selectedRecipe],
 			});
 		}
 	};
 
-	render () {
+	render() {
+		if (!this.state.isLoggedIn) {
+			return (
+				<Login
+					onGoogleLoginSuccess={this.onGoogleLoginSuccess}
+					onGoogleLoginFail={this.onGoogleLoginFail}
+					isAuthFailed={this.state.isAuthFailed}
+				/>
+			);
+		}
+
 		return (
 			<div className='container'>
 				<Header onSearchClick={this.onSearchClick} likedRecipes={this.state.likedRecipes} />
