@@ -31,9 +31,17 @@
 					console.log('inside response');
 					console.log(res);
 				};
+
+				const handleResponse = (res) => {
+					console.log('native res');
+					console.log(res);
+				};
 				google.accounts.id.initialize({
 					client_id: '239289699274-chiqlahf6p85rgvuo99l6oq7dlbp1405.apps.googleusercontent.com',
 					callback: handleCredentialResponse,
+					auto_select: false,
+					native_callback: handleResponse,
+					cancel_on_tap_outside: false,
 				});
 				google.accounts.id.prompt((notification) => {
 					console.log(notification.isDisplayMoment());
