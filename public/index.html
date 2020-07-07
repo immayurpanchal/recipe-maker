@@ -23,17 +23,26 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
 		<title>Forkify - Search over 1,00,000 recipes</title>
-		<script src="https://accounts.google.com/gsi/client" async defer></script>
+		<script src="https://accounts.google.com/gsi/client"></script>
 		<script>
 			window.onload = function () {
-				const handleCredentialResponse = () => {
-					console.log('inside');
+				console.log('test');
+				const handleCredentialResponse = (res) => {
+					console.log('inside response');
+					console.log(res);
 				};
 				google.accounts.id.initialize({
 					client_id: '239289699274-chiqlahf6p85rgvuo99l6oq7dlbp1405.apps.googleusercontent.com',
 					callback: handleCredentialResponse,
 				});
-				google.accounts.id.prompt();
+				google.accounts.id.prompt((notification) => {
+					console.log(notification.isDisplayMoment());
+					console.log('reason : ', notification.getNotDisplayedReason());
+					if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+						// try next provider if OneTap is not displayed or skipped
+						console.log('inside not displayed');
+					}
+				});
 			};
 		</script>
 	</head>
